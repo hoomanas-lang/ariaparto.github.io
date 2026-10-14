@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تماس | آریا پرتو آگاه</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #ffffff;
+    color: #202124;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  /* نوار بالا */
+  .topbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px 28px;
+    font-size: 13px;
+  }
+  .topbar a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar .spacer { flex: 1; }
+  .topbar button {
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 50%;
+  }
+  .topbar button:hover { background: #f8f9fa; }
+
+  /* محتوای اصلی */
+  main {
+    flex: 1;
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 24px 60px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: #202124;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .page-header p {
+    font-size: 14.5px;
+    color: #5f6368;
+  }
+
+  /* کارت‌های اطلاعات */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  .info-card {
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    padding: 22px 20px;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.25s;
+  }
+  .info-card:hover {
+    border-color: #dadce0;
+    box-shadow: 0 4px 14px rgba(32,33,36,0.08);
+    transform: translateY(-2px);
+  }
+  .info-card .icon {
+    font-size: 22px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .info-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5f6368;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .info-card p,
+  .info-card a {
+    font-size: 14.5px;
+    color: #202124;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.6;
+  }
+  .info-card a:hover { color: #1a73e8; }
+
+  /* فرم تماس */
+  .form-section {
+    border-top: 1px solid #e8eaed;
+    padding-top: 44px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .form-section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #202124;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 12.5px;
+    color: #5f6368;
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 12px 14px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+    color: #202124;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.25s;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: #80868b; }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26,115,232,0.15);
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #fff;
+    background: #1a73e8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: #1765cc; }
+
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 24px 0;
+  }
+  .success-msg .check {
+    font-size: 42px;
+    color: #34a853;
+    margin-bottom: 12px;
+  }
+  .success-msg p {
+    font-size: 14.5px;
+    color: #202124;
+    line-height: 1.8;
+  }
+
+  /* فوتر */
+  footer {
+    border-top: 1px solid #e8eaed;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 12.5px;
+    color: #5f6368;
+  }
+  footer a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  footer a:hover { text-decoration: underline; }
+
+  /* حالت تاریک */
+  [data-theme="dark"] body {
+    background: #202124;
+    color: #e8eaed;
+  }
+  [data-theme="dark"] .topbar a,
+  [data-theme="dark"] footer a {
+    color: #9aa0a6;
+  }
+  [data-theme="dark"] .topbar button:hover {
+    background: #303134;
+  }
+  [data-theme="dark"] .page-header h1 { color: #e8eaed; }
+  [data-theme="dark"] .page-header p { color: #9aa0a6; }
+  [data-theme="dark"] .info-card {
+    border-color: #3c4043;
+  }
+  [data-theme="dark"] .info-card:hover {
+    border-color: #5f6368;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] .info-card h3 { color: #9aa0a6; }
+  [data-theme="dark"] .info-card p,
+  [data-theme="dark"] .info-card a { color: #e8eaed; }
+  [data-theme="dark"] .info-card a:hover { color: #8ab4f8; }
+  [data-theme="dark"] .form-section { border-color: #3c4043; }
+  [data-theme="dark"] .form-section h2 { color: #e8eaed; }
+  [data-theme="dark"] .form-group label { color: #9aa0a6; }
+  [data-theme="dark"] .form-group input,
+  [data-theme="dark"] .form-group textarea {
+    background: #303134;
+    border-color: #3c4043;
+    color: #e8eaed;
+  }
+  [data-theme="dark"] .form-group input::placeholder,
+  [data-theme="dark"] .form-group textarea::placeholder { color: #80868b; }
+  [data-theme="dark"] .submit-btn {
+    background: #8ab4f8;
+    color: #202124;
+  }
+  [data-theme="dark"] .submit-btn:hover { background: #aecbfa; }
+  [data-theme="dark"] .success-msg p { color: #e8eaed; }
+  [data-theme="dark"] footer { border-color: #3c4043; }
+
+  @media (max-width: 720px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 26px; }
+    main { padding: 12px 18px 40px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="index.html">خانه</a>
+    <a href="services.html">خدمات</a>
+    <a href="about.html">درباره ما</a>
+    <a href="contact.html">تماس</a>
+    <span class="spacer"></span>
+    <button id="themeBtn" type="button">🌙</button>
+  </div>
+
+  <main>
+    <div class="page-header">
+      <h1>تماس با ما</h1>
+      <p>واسطه‌گری معاملات برق، سولار و بهینه‌سازی انرژی</p>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-card">
+        <span class="icon">📞</span>
+        <h3>تلفن</h3>
+        <a href="tel:+982144338895" dir="ltr">021-44338895</a>
+      </div>
+
+      <div class="info-card">
+        <span class="icon">✉️</span>
+        <h3>ایمیل</h3>
+        <a href="mailto:ariaparto.agah@gmail.com" dir="ltr">ariaparto.agah@gmail.com</a>
+      </div>
+
+      <div class="info-card">
+        <span class="icon">📍</span>
+        <h3>آدرس</h3>
+        <p>تهران، شهر زیبا، بلوار شهرزیبا ، بلوک 43</p>
+      </div>
+
+    </div>
+
+    <div class="form-section">
+      <h2>یا پیام بگذارید</h2>
+
+      <form id="contactForm" onsubmit="submitForm(event)">
+
+        <div class="form-group">
+          <label for="cname">نام و نام خانوادگی</label>
+          <input id="cname" type="text" placeholder="مثلاً علی رضایی" required>
+        </div>
+
+        <div class="form-group">
+          <label for="ccontact">ایمیل یا شماره تماس</label>
+          <input id="ccontact" type="text" placeholder="example@mail.com یا ۰۹۱۲…" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cmessage">پیام شما</label>
+          <textarea id="cmessage" placeholder="سؤال، پیشنهاد یا درخواست خود را بنویسید…" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">ارسال پیام</button>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="check">✓</div>
+        <p>پیام شما ارسال شد.<br>به‌زودی با شما تماس می‌گیریم.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a href="contact.html">تماس</a>
+    <a href="about.html">درباره</a>
+    <a href="#">قوانین</a>
+    <span>©آریا پرتو آگاه</span>
+  </footer>
+
+<script>
+  var themeBtn = document.getElementById('themeBtn');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    try { localStorage.setItem('theme', theme); } catch(e) {}
+  }
+
+  themeBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  (function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch(e) {}
+    if (saved) applyTheme(saved);
+    else applyTheme('light');
+  })();
+
+  function submitForm(e) {
+    e.preventDefault();
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+</body>
+</html>

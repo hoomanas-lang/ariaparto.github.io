@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>درباره ما | آریا پرتو آگاه</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #ffffff;
+    color: #202124;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  /* نوار بالا */
+  .topbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px 28px;
+    font-size: 13px;
+  }
+  .topbar a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar .spacer { flex: 1; }
+  .topbar button {
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 50%;
+  }
+  .topbar button:hover { background: #f8f9fa; }
+
+  /* محتوای اصلی */
+  main {
+    flex: 1;
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 24px 60px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: #202124;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .page-header p {
+    font-size: 14.5px;
+    color: #5f6368;
+  }
+
+  /* متن معرفی */
+  .intro {
+    font-size: 15px;
+    line-height: 2;
+    color: #202124;
+    margin-bottom: 48px;
+  }
+  .intro p { margin-bottom: 18px; }
+  .intro strong { color: #1a73e8; font-weight: 600; }
+
+  /* آمار */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  .stat {
+    text-align: center;
+    padding: 22px 12px;
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.25s;
+  }
+  .stat:hover {
+    border-color: #dadce0;
+    box-shadow: 0 4px 14px rgba(32,33,36,0.08);
+    transform: translateY(-2px);
+  }
+  .stat .num {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a73e8;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .stat .label {
+    font-size: 12.5px;
+    color: #5f6368;
+  }
+
+  /* ارزش‌ها */
+  .values {
+    border-top: 1px solid #e8eaed;
+    padding-top: 44px;
+    margin-bottom: 56px;
+  }
+  .values h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #202124;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .value-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .value-item {
+    padding: 20px;
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
+  }
+  .value-item:hover {
+    border-color: #dadce0;
+    box-shadow: 0 4px 14px rgba(32,33,36,0.08);
+  }
+  .value-item .icon {
+    font-size: 20px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .value-item h3 {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #202124;
+    margin-bottom: 8px;
+  }
+  .value-item p {
+    font-size: 13px;
+    color: #5f6368;
+    line-height: 1.7;
+  }
+
+  /* فراخوان پایانی */
+  .cta {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid #e8eaed;
+  }
+  .cta p {
+    font-size: 15px;
+    color: #3c4043;
+    margin-bottom: 20px;
+  }
+  .cta button {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    background: #1a73e8;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .cta button:hover { background: #1765cc; }
+
+  /* فوتر */
+  footer {
+    border-top: 1px solid #e8eaed;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 12.5px;
+    color: #5f6368;
+  }
+  footer a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  footer a:hover { text-decoration: underline; }
+
+  /* حالت تاریک */
+  [data-theme="dark"] body {
+    background: #202124;
+    color: #e8eaed;
+  }
+  [data-theme="dark"] .topbar a,
+  [data-theme="dark"] footer a {
+    color: #9aa0a6;
+  }
+  [data-theme="dark"] .topbar button:hover {
+    background: #303134;
+  }
+  [data-theme="dark"] .page-header h1 { color: #e8eaed; }
+  [data-theme="dark"] .page-header p { color: #9aa0a6; }
+  [data-theme="dark"] .intro { color: #e8eaed; }
+  [data-theme="dark"] .intro strong { color: #8ab4f8; }
+  [data-theme="dark"] .stat { border-color: #3c4043; }
+  [data-theme="dark"] .stat:hover {
+    border-color: #5f6368;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] .stat .num { color: #8ab4f8; }
+  [data-theme="dark"] .stat .label { color: #9aa0a6; }
+  [data-theme="dark"] .values { border-color: #3c4043; }
+  [data-theme="dark"] .values h2 { color: #e8eaed; }
+  [data-theme="dark"] .value-item { border-color: #3c4043; }
+  [data-theme="dark"] .value-item:hover {
+    border-color: #5f6368;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] .value-item h3 { color: #e8eaed; }
+  [data-theme="dark"] .value-item p { color: #9aa0a6; }
+  [data-theme="dark"] .cta { border-color: #3c4043; }
+  [data-theme="dark"] .cta p { color: #e8eaed; }
+  [data-theme="dark"] .cta button {
+    background: #8ab4f8;
+    color: #202124;
+  }
+  [data-theme="dark"] .cta button:hover { background: #aecbfa; }
+  [data-theme="dark"] footer { border-color: #3c4043; }
+
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .value-list { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 26px; }
+    main { padding: 12px 18px 40px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="index.html">خانه</a>
+    <a href="services.html">خدمات</a>
+    <a href="about.html">درباره ما</a>
+    <a href="contact.html">تماس</a>
+    <span class="spacer"></span>
+    <button id="themeBtn" type="button">🌙</button>
+  </div>
+
+  <main>
+    <div class="page-header">
+      <h1>درباره ما</h1>
+      <p>واسطه‌گری معاملات برق، سولار و بهینه‌سازی انرژی</p>
+    </div>
+
+    <div class="intro">
+      <p>
+        <strong>آریا پرتو آگاه</strong> یک کارگزاری تخصصی در حوزه برق، انرژی‌های تجدیدپذیر و بهینه‌سازی مصرف است.
+        ما با ایجاد پلی میان کارفرمایان، پیمانکاران، تامین‌کنندگان و سرمایه‌گذاران،
+        فرآیند معاملات انرژی را ساده‌تر، شفاف‌تر و سریع‌تر می‌کنیم.
+      </p>
+      <p>
+        هدف ما این است که به جای واسطه‌گری سنتی و پرهزینه، یک بستر دیجیتال مینیمال و کارآمد
+        فراهم کنیم تا هر طرف معامله بتواند در کمترین زمان، مناسب‌ترین گزینه را پیدا کند.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="num">۱۲</span>
+        <span class="label">پروژه فعال</span>
+      </div>
+      <div class="stat">
+        <span class="num">۳۴</span>
+        <span class="label">تامین‌کننده</span>
+      </div>
+      <div class="stat">
+        <span class="num">۵</span>
+        <span class="label">معامله این هفته</span>
+      </div>
+      <div class="stat">
+        <span class="num">۸</span>
+        <span class="label">سال تجربه</span>
+      </div>
+    </div>
+
+    <div class="values">
+      <h2>ارزش‌های ما</h2>
+      <div class="value-list">
+
+        <div class="value-item">
+          <span class="icon">🔍</span>
+          <h3>شفافیت</h3>
+          <p>همه معاملات و شرایط، روشن و قابل پیگیری برای هر دو طرف.</p>
+        </div>
+
+        <div class="value-item">
+          <span class="icon">⚡</span>
+          <h3>سرعت</h3>
+          <p>اتصال سریع کارفرما به پیمانکار، بدون رفت‌وآمدهای اضافه.</p>
+        </div>
+
+        <div class="value-item">
+          <span class="icon">🤝</span>
+          <h3>اعتماد</h3>
+          <p>همکاری با تامین‌کنندگان و پیمانکاران تاییدشده و باتجربه.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cta">
+      <p>آماده شروع همکاری هستید؟</p>
+      <button type="button" onclick="window.location.href='index.html'">ثبت درخواست</button>
+    </div>
+  </main>
+
+  <footer>
+    <a href="contact.html">تماس</a>
+    <a href="about.html">درباره</a>
+    <a href="#">قوانین</a>
+    <span>© آریا پرتو آگاه </span>
+  </footer>
+
+<script>
+  var themeBtn = document.getElementById('themeBtn');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    try { localStorage.setItem('theme', theme); } catch(e) {}
+  }
+
+  themeBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  (function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch(e) {}
+    if (saved) applyTheme(saved);
+    else applyTheme('light');
+  })();
+</script>
+</body>
+</html>

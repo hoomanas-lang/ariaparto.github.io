@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آریا پرتو آگاه | کارگزاری برق و انرژی</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #ffffff;
+    color: #202124;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  .topbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px 28px;
+    font-size: 13px;
+  }
+  .topbar a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar .spacer { flex: 1; }
+  .topbar button {
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 50%;
+  }
+  .topbar button:hover { background: #f8f9fa; }
+
+  .center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    margin-top: 0;
+  }
+
+  .logo {
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .logo span { color: #1a73e8; }
+
+  .tagline {
+    font-size: 15px;
+    color: #5f6368;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .search-box {
+    width: 100%;
+    max-width: 580px;
+    height: 48px;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    background: #fff;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .search-box:hover,
+  .search-box:focus-within {
+    box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+    border-color: transparent;
+  }
+  .search-box .icon {
+    font-size: 18px;
+    color: #9aa0a6;
+    margin-left: 10px;
+  }
+  .search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: inherit;
+    background: transparent;
+    color: #202124;
+  }
+  .search-box input::placeholder { color: #80868b; }
+
+  .buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .buttons button {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 22px;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    background: #f8f9fa;
+    color: #3c4043;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .buttons button:hover {
+    border-color: #dadce0;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  }
+  .buttons button.primary {
+    background: #1a73e8;
+    color: #ffffff;
+    border-color: #1a73e8;
+  }
+  .buttons button.primary:hover { background: #1765cc; }
+
+  .topics {
+    margin-top: 28px;
+    font-size: 13px;
+    color: #5f6368;
+    text-align: center;
+  }
+  .topics a {
+    color: #1a73e8;
+    text-decoration: none;
+    margin: 0 4px;
+  }
+  .topics a:hover { text-decoration: underline; }
+
+  .status {
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: #80868b;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .status .dot {
+    width: 7px;
+    height: 7px;
+    background: #34a853;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 6px;
+  }
+
+  footer {
+    border-top: 1px solid #e8eaed;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 12.5px;
+    color: #5f6368;
+  }
+  footer a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  footer a:hover { text-decoration: underline; }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+  .modal.open { display: flex; }
+
+  .modal-box {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+    padding: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  }
+
+  .modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .modal-head h2 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .modal-head button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #5f6368;
+  }
+
+  .modal label {
+    display: block;
+    font-size: 12.5px;
+    color: #5f6368;
+    margin: 14px 0 6px;
+  }
+  .modal input,
+  .modal select,
+  .modal textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 11px 14px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    outline: none;
+    background: #fff;
+  }
+  .modal input:focus,
+  .modal select:focus,
+  .modal textarea:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26,115,232,0.15);
+  }
+  .modal textarea { resize: vertical; min-height: 80px; }
+
+  .modal-submit {
+    width: 100%;
+    margin-top: 22px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #fff;
+    background: #1a73e8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .modal-submit:hover { background: #1765cc; }
+
+  .success {
+    display: none;
+    text-align: center;
+    padding: 14px 0;
+  }
+  .success .check {
+    font-size: 42px;
+    color: #34a853;
+    margin-bottom: 10px;
+  }
+  .success p {
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+
+  [data-theme="dark"] body {
+    background: #202124;
+    color: #e8eaed;
+  }
+  [data-theme="dark"] .topbar a,
+  [data-theme="dark"] footer a {
+    color: #9aa0a6;
+  }
+  [data-theme="dark"] .topbar button:hover {
+    background: #303134;
+  }
+  [data-theme="dark"] .logo span { color: #8ab4f8; }
+  [data-theme="dark"] .tagline,
+  [data-theme="dark"] .topics,
+  [data-theme="dark"] .status,
+  [data-theme="dark"] footer {
+    color: #9aa0a6;
+  }
+  [data-theme="dark"] .search-box {
+    background: #303134;
+    border-color: #3c4043;
+  }
+  [data-theme="dark"] .search-box input { color: #e8eaed; }
+  [data-theme="dark"] .search-box input::placeholder { color: #9aa0a6; }
+  [data-theme="dark"] .buttons button {
+    background: #303134;
+    color: #e8eaed;
+    border-color: #303134;
+  }
+  [data-theme="dark"] .buttons button.primary {
+    background: #8ab4f8;
+    color: #202124;
+    border-color: #8ab4f8;
+  }
+  [data-theme="dark"] footer { border-color: #3c4043; }
+  [data-theme="dark"] .modal-box {
+    background: #303134;
+    color: #e8eaed;
+  }
+  [data-theme="dark"] .modal-head h2 { color: #e8eaed; }
+  [data-theme="dark"] .modal-head button { color: #9aa0a6; }
+  [data-theme="dark"] .modal label { color: #9aa0a6; }
+  [data-theme="dark"] .modal input,
+  [data-theme="dark"] .modal select,
+  [data-theme="dark"] .modal textarea {
+    background: #202124;
+    border-color: #3c4043;
+    color: #e8eaed;
+  }
+
+  @media (max-width: 600px) {
+    .logo { font-size: 44px; }
+    .tagline { font-size: 13px; }
+    .buttons { flex-direction: column; width: 100%; max-width: 280px; }
+    .buttons button { width: 100%; }
+    .status { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="about.html">درباره ما</a>
+    <a href="contact.html">تماس</a>
+    <span class="spacer"></span>
+    <button id="themeBtn" type="button">🌙</button>
+    <a href="#">ورود</a>
+  </div>
+
+  <main class="center">
+    <div class="logo">آریا پرتو <span>آگاه</span></div>
+    <p class="tagline">واسطه‌گری معاملات برق، سولار و بهینه‌سازی انرژی</p>
+
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input type="text" placeholder="نیاز یا پروژه خود را بنویسید…">
+    </div>
+
+    <div class="buttons">
+      <button type="button" class="primary" onclick="openModal()">ثبت درخواست</button>
+      <button type="button" onclick="window.location.href='services.html'">مشاهده خدمات</button>
+    </div>
+
+    <div class="topics">
+      <a href="services.html">برق صنعتی</a> ·
+      <a href="services.html">نیروگاه خورشیدی</a> ·
+      <a href="services.html">بهینه‌سازی مصرف</a> ·
+      <a href="services.html">بازار انرژی</a>
+    </div>
+
+    <div class="status">
+      <span><span class="dot"></span>۱۲ پروژه فعال</span>
+      <span>۳۴ تامین‌کننده</span>
+      <span>۵ معامله این هفته</span>
+    </div>
+  </main>
+
+  <footer>
+    <a href="contact.html">تماس</a>
+    <a href="about.html">درباره</a>
+    <a href="#">قوانین</a>
+    <span><span>©  آریا پرتو آگاه</span></span>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h2>ثبت درخواست جدید</h2>
+        <button type="button" onclick="closeModal()">✕</button>
+      </div>
+
+      <form id="reqForm" onsubmit="submitForm(event)">
+        <label>نام و نام خانوادگی</label>
+        <input type="text" required placeholder="مثلاً علی رضایی">
+
+        <label>شماره تماس</label>
+        <input type="tel" required placeholder="۰۹۱۲…">
+
+        <label>نوع درخواست</label>
+        <select required>
+          <option value="">انتخاب کنید…</option>
+          <option>برق صنعتی</option>
+          <option>نیروگاه خورشیدی</option>
+          <option>بهینه‌سازی مصرف</option>
+          <option>بازار انرژی</option>
+          <option>سایر</option>
+        </select>
+
+        <label>توضیح کوتاه نیاز شما</label>
+        <textarea placeholder="مثلاً نیاز به پیمانکار برای نصب ۱۰ کیلووات پنل…"></textarea>
+
+        <button type="submit" class="modal-submit">ارسال درخواست</button>
+      </form>
+
+      <div class="success" id="successMsg">
+        <div class="check">✓</div>
+        <p>درخواست شما ثبت شد.<br>کارشناسان ما به‌زودی تماس می‌گیرند.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  var themeBtn = document.getElementById('themeBtn');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    try { localStorage.setItem('theme', theme); } catch(e) {}
+  }
+
+  themeBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  (function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch(e) {}
+    if (saved) applyTheme(saved);
+    else applyTheme('light');
+  })();
+
+  var modal = document.getElementById('modal');
+  var reqForm = document.getElementById('reqForm');
+  var successMsg = document.getElementById('successMsg');
+
+  function openModal() {
+    modal.classList.add('open');
+    reqForm.style.display = 'block';
+    successMsg.style.display = 'none';
+    reqForm.reset();
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+  }
+
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function submitForm(e) {
+    e.preventDefault();
+    reqForm.style.display = 'none';
+    successMsg.style.display = 'block';
+    setTimeout(closeModal, 2200);
+  }
+</script>
+
+</body>
+</html>
