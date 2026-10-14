@@ -294,7 +294,7 @@
       <div class="info-card">
         <span class="icon">📍</span>
         <h3>آدرس</h3>
-        <p>تهران، شهر زیبا، بلوار شهرزیبا ، بلوک 43</p>
+        <p>تهران، شهر زیبا، بلوار شهرزیبا، بلوک ۴۳</p>
       </div>
 
     </div>
@@ -302,21 +302,20 @@
     <div class="form-section">
       <h2>یا پیام بگذارید</h2>
 
-      <form id="contactForm" onsubmit="submitForm(event)">
-
+      <form id="contactForm">
         <div class="form-group">
           <label for="cname">نام و نام خانوادگی</label>
-          <input id="cname" type="text" placeholder="مثلاً علی رضایی" required>
+          <input id="cname" name="Name" type="text" placeholder="مثلاً علی رضایی" required>
         </div>
 
         <div class="form-group">
           <label for="ccontact">ایمیل یا شماره تماس</label>
-          <input id="ccontact" type="text" placeholder="example@mail.com یا ۰۹۱۲…" required>
+          <input id="ccontact" name="Contact" type="text" placeholder="example@mail.com یا ۰۹۱۲…" required>
         </div>
 
         <div class="form-group">
           <label for="cmessage">پیام شما</label>
-          <textarea id="cmessage" placeholder="سؤال، پیشنهاد یا درخواست خود را بنویسید…" required></textarea>
+          <textarea id="cmessage" name="Message" placeholder="سؤال، پیشنهاد یا درخواست خود را بنویسید…" required></textarea>
         </div>
 
         <button type="submit" class="submit-btn">ارسال پیام</button>
@@ -333,10 +332,11 @@
     <a href="contact.html">تماس</a>
     <a href="about.html">درباره</a>
     <a href="#">قوانین</a>
-    <span>©آریا پرتو آگاه</span>
+    <span>© آریا پرتو آگاه</span>
   </footer>
 
 <script>
+  /* ===== تم تاریک/روشن ===== */
   var themeBtn = document.getElementById('themeBtn');
 
   function applyTheme(theme) {
@@ -357,11 +357,28 @@
     else applyTheme('light');
   })();
 
-  function submitForm(e) {
+  /* ===== فرم تماس ===== */
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-  }
+
+    var form = e.target;
+    var data = new FormData(form);
+    var scriptURL = 'https://script.google.com/macros/s/AKfycbwP2IZDDXettR4FlHpUlDh5JnBXm_LrtfIIkQIDGn9MRLYYQsQNWWp8aOsILkTtjzF6/exec';
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: data,
+      mode: 'no-cors'
+    })
+    .then(function() {
+      form.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    })
+    .catch(function(error) {
+      alert('خطا در ارسال. لطفاً دوباره تلاش کنید.');
+      console.error(error);
+    });
+  });
 </script>
 </body>
 </html>
